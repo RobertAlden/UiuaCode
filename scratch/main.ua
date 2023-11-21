@@ -8,7 +8,7 @@ LerpIter ← (⊃(Lerp)⋅⊙∘)
 GenLerpRange ← (⇌;;;⍢(⊃(⊙⊙∘)(⟜⟜⊂)LerpIter)(≠)⊙⊙⊙[])
 
 RangeLerp ← (⊏⍏.⊝⊂⊃∘(≡(Lerp⊙⊙0.5⍘⊟)◫2))
-PadZeros ← (↻⊙(⬚0+↯∶0)⊃(¯⊟.)(++.)⊙⊃△∘)
+PadZeros ← (↻⊙(⬚0+↯:0)⊃(¯⊟.)(++.)⊙⊃△∘)
 #
 # 0 1 0.23
 # GenLerpRange
