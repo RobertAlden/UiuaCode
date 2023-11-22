@@ -5,28 +5,33 @@ Plot ← (⍜⊡;⊙:⊃↙(⊢↘)2)
 # XYVmat SCR => SCR
 PlotM ← (/↥≡Plot ⊙¤)
 # [XY0 XY1] => Slope
-Slope ← (/÷≡/-⍉)
+Slope ← (/÷/-)
 # [XY0 XY1] => [X0..X1]
 Span ← (⇡+1/↥⌵/-)
 # XYMat => bool XYmat
-OrderXYs ← ((0⇌|1)/>≡(⁅√/+×.).)
+Offset ← (⊏/<≡(⁅√/+×.).)
 # XYMat => bool XYmat
-XyOrYx ← ((0≡⇌|1)⊃(<1⌵Slope)∘)
+XyOrYx ← ((0|1)⊃(≥1⌵Slope)∘)
 # Slope Xarr => Yarr Xarr
 XsToYs ← (⊟⁅×,⊃(Slope|Span))
-# [XY0 XY1] V SCR => SCR
-DrawLine ← (PlotM⍉⊂(∘|⇌)⊙+(∘|⊙⇌)⊙⊙(⊢⊃∘XsToYs) ⊙XyOrYx OrderXYs)
+Correct ← (∘|∘|∘)
+# [XY0 XY1] => XYmat
+Line ← (⍉+Correct ⸮ ⊙Offset ⊙⊃∘(XsToYs) XyOrYx)
+Lines ← (⊐(/⊂≡Line))
+Draw ← (PlotM ≡⊂)
 # XYList => XY0_XY1mat
 Strides ← (◫2⊂⊃∘⊢)
-# XYList V SCR => SCR
+Polygon ← (Lines Strides)
 
 Main ← (
-  InitScreen 20_1
-  DrawLine [1_1 12_1] 1
-  DrawLine [1_1 1_12] 1
-  DrawLine [12_1 1_12] 1
-  DrawLine [3_3 9_9] 1
-  &ims
-  # DrawLine [3_6 10_15] 1
+  # 1 InitScreen 20_1
+
+  # Line [5_1 5_16]
+  # Line [16_5 3_5]
+  # Line [5_5 9_9]
+  Slope [5_16 16_5]
+  # Line [2_3 5_10]
+  # Lines Strides [2_3 5_10 4_8]
+  # &ims Draw
 )
 Main
