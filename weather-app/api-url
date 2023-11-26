@@ -1,3 +1,0 @@
-&current=temperature_2m&temperature_unit=fahrenheit
-&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FChicago&past_days=3&forecast_days=4
-&current=temperature_2m,precipitation,cloud_cover,wind_speed_10m&hourly=precipitation_probability&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FChicago
