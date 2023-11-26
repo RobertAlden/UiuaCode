@@ -1,8 +1,8 @@
 Codes ← (
   $ Clear Skys
-  $ Waning Clouds
-  $ Unchanging
-  $ Waxing Clouds
+  $ Mostly Clear
+  $ Partly Cloudy
+  $ Overcast
   $ Smokey
   $ Haze
   $ Dusty
@@ -44,48 +44,48 @@ Codes ← (
   $ Medium Fog, waning
   $ Heavy Fog, waning
   $ Medium Fog
-  $ Heavy Fog
+  $ Fog
   $ Medium Fog, waxing
   $ Heavy Fog, waxing
-  $ Light Rime
+  $ Rime Fog
   $ Heavy Rime
   $ Light Inter. Drizzle
-  $ Light Cont. Drizzle
+  $ Light Drizzle
   $ Moderate Inter. Drizzle
-  $ Moderate Cont. Drizzle
+  $ Moderate Drizzle
   $ Heavy Inter. Drizzle
-  $ Heavy Cont. Drizzle
-  $ Slight Freezing Drizzle
+  $ Heavy Drizzle
+  $ Light Freezing Drizzle
   $ Dense Freezing Drizzle
   $ Slight Drizzle/Rain
   $ Dense Drizzle/Rain
   $ Light Inter. Rain
-  $ Light Cont. Rain
+  $ Light Rain
   $ Moderate Inter. Rain
-  $ Moderate Cont. Rain
+  $ Moderate Rain
   $ Heavy Inter. Rain
-  $ Heavy Cont. Rain
-  $ Slight Freezing Rain
-  $ Dense Freezing Rain
+  $ Heavy Rain
+  $ Light Freezing Rain
+  $ Heavy Freezing Rain
   $ Slight Drizzle/Snow
   $ Dense Drizzle/Snow
   $ Slight Inter. fall of snowflakes
-  $ Slight Cont. fall of snowflakes
+  $ Slight Snowfall
   $ Moderate Inter. fall of snowflakes
-  $ Moderate Cont. fall of snowflakes
+  $ Moderate Snowfall
   $ Heavy Inter. fall of snowflakes
-  $ Heavy Cont. fall of snowflakes
+  $ Heavy Snowfall 
   $ Fine Snow
-  $ Powdery Snow 
+  $ Snow Grains
   $ Snowflakes
   $ Ice pellets
-  $ Rain shower(s), slight
-  $ Rain shower(s), moderate or heavy
-  $ Rain shower(s), violent
+  $ Slight Rain showers 
+  $ Moderate Rain showers
+  $ Heavy Rain showers
   $ Shower(s) of rain and snow mixed, slight
   $ Shower(s) of rain and snow mixed, moderate or heavy
-  $ Snow shower(s), slight
-  $ Snow shower(s), moderate or heavy
+  $ Slight Snow showers 
+  $ Heavy Snow showers
   $ Slight Shower(s) of small hail
   $ Heavy Shower(s) of small hail
   $ Light Shower(s) of hail
@@ -94,12 +94,13 @@ Codes ← (
   $ Moderate/Heavy rain, Thunderstorms 
   $ Mixed Snow/Hail/Rain, Thunderstorms
   $ Moderate or heavy Snow/Hail/Rain, Thunderstorms
-  $ Thunderstorm, slight or moderate 
+  $ Thunderstorm, slight/moderate 
   $ Thunderstorm, slight/moderate, hail
   $ Thunderstorm, heavy, rain/snow
   $ Thunderstorm combined with duststorm
   $ Thunderstorm, heavy, with hail
 )
+
 WeatherCodes ← (⬚@ ⊜∘≠@\n.Codes)
 # Config
 Constants ← "&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit"
