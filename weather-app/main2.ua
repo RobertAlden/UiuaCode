@@ -58,22 +58,3 @@ FindSections ← (⊐≡↘⊙¤+⊃(+1⧻)(⊚⌕)⊙.)
 FindEnd ← (↙⊗⊙.(@}|@]|@")⊗:"{["⊃⊢(↘1))
 KtVs ← (⊐≡FindEnd FindSections ⊂⊂⊙:.@")
 ArrParse ← (⊜□≠@,.⊔)
-
-# Data Wrangling
-TrimSpaces ← (≡↙⊗⊃(⧻|/+)=@ .)
-Weather ← (TrimSpaces ⊏:WeatherCodes ⊗:WCodes ⊐∵parse ArrParse ⊢⇌ KtVs "weather_code")
-LowTemps ← (≡⊐⊂↘1:⊢.⍜(⊢⇌)ArrParse KtVs "temperature_2m_min")
-HighTemps ← (≡⊐⊂↘1:⊢.⍜(⊢⇌)ArrParse KtVs "temperature_2m_max")
-HourlyTempI ← (↯7_8⊐∵parse↘1⍜(⊢⇌)ArrParse KtVs "temperature_180m") # 180 minute slices
-Dates ← (⊐⊜(↘¯1↘1)≠@,.⊢↘1 KtVs "time")
-
-# Output Formatting
-Titlebar ← ⇌⬚@-⊟ """ Highs  | Lows   | Date       | Weather  "
-ShowWeather ← (⬚@ ⊂Titlebar≡(⊂⊂⊂⊂⊂⊂⊂) ⊃(@ |HighTemps|¤" | "|LowTemps|¤" | "|Dates|¤" | "|Weather) .GetDailyWeatherData)
-Stringify ← (♭≡⊂:@\n)
-
-Remap ← (+⊙(×⊙-:)⍘⊟≡(⊢⇌):/÷⇌≡/-.)
-RenderTemps ← (⍉Remap[1_0 ⊂⊃(/↥)(/↧)]♭.)
-
-&p Stringify ShowWeather
-# &ims RenderTemps HourlyTempI GetHourlyWeatherData

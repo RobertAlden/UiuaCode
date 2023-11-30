@@ -4,4 +4,4 @@ Indices ← (≡≡/+⇡△)
 Masks ← (⊠=⊃(Slices|Indices))
 Diagonals ← (⊡⊐(/⊂≡(⇌⊚)) Masks .)
 Filter ← (▽≠⊙.)
-Filter ¯1 Diagonals Input
+Slices Input

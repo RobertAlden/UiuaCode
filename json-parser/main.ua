@@ -43,7 +43,7 @@ Keys ← (⊐≡(⊢↙¯1Strings↙)⊙¤ +1⊚=@: Trim .RemoveWhitespace)
 ReadJSON ← (⍉⊟⊃(Keys|ParseValues Values))
 Fetch ← (⊐⊏⊚=□:⊏0⍉:⊙.)
 ReadJSON a
-Fetch "array"
+Fetch "field1"
 # ObjNames ← (⊐≡(⊢⇌)↘¯1⊐⊜(Strings)◿2\+/+⊠="}{")
 # ObjFields ← (↘¯1⊐⊜(Csv ↘1)¬◿2\+/+⊠="}{")
 # RefFields ← (⊐/⊂⊐≡(⊐≡(⍜(↻1)(⊂:⊂@.)):¤))
