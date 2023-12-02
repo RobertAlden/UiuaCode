@@ -116,7 +116,7 @@ DailyWeather ← (
   ⊙(≡▽¤¬/×=@ . ≡FormatWeatherCode)
   ;
   ⬚∘⊂.@-⍥(≡⊂:≡(⊂" | "))3
-  ⬚@ ⊂"7 Day Forecast: "⬚@ ⊂"Date       | High   | Low    |   Weather"
+  ⬚@ ⊂"7 Day Forecast: "⬚@ ⊂"Date       | Highs  | Lows   | Weather"
 )
 Main ← (
   CurrentWeather
