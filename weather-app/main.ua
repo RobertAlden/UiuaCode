@@ -122,6 +122,6 @@ Main ← (
   CurrentWeather
   DailyWeather
   ⬚@ ⊂:
-  &p /⊂≡⊂:@\n
+  &p /⊂≡⊂@\t≡⊂:@\n
 )
 Main
