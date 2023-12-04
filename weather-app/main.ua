@@ -75,10 +75,10 @@ ParseArray ← ⊜Convert≠@,.Trim
 ParseNumber ← Convert
 ParseString ← ⊔Convert
 ParseBool ← Convert
-ParseElement ← (ParseArray|ParseNumber|ParseString|ParseBool)
+ParseElement ← (ParseArray?|ParseNumber|ParseString|ParseBool)
 
 # Usage = "subobject.field" ["array"|"number"|"string"|"bool"] JsonString
-Retrieve ← :ParseElement Type⊙(⊔⊢⇌ regex ComposeKVRegex).:⊙⊙.
+Retrieve ← :ParseElement Type⊙(⊔⊢⇌♭ regex ComposeKVRegex).:⊙⊙.
 
 # Formatting
 FormatWeatherCode ← ⊏:WeatherCodes ⊗:WCodes

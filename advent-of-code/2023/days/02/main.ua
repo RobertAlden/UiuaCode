@@ -6,3 +6,5 @@ Silver ← /++1⊚¬⊐≡(/↥≡(/↥>Bag/+≡Convert))
 Gold ← /+⊐≡(/×/↥≡(/+≡Convert))
 
 ⊃(Gold|Silver)
+
+
