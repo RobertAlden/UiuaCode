@@ -35,7 +35,7 @@ WeatherCodes ← (⬚@ ⊜∘≠@\n.Codes)
 Site ← "api.open-meteo.com:443"
 Lat ← "34.6373032"
 Lon ← "-98.4584034"
-DaysPrior ← 0
+DaysPrior ← 1
 DaysHence ← 7
 
 # Request building
@@ -48,7 +48,7 @@ DailyParams ← "&daily=weather_code,temperature_2m_max,temperature_2m_min&tempe
 DailyRequest ← (⊐/⊂{"GET " Start Loc DailyParams DateRange " HTTP/1.0"})
 GetDailyWeatherData ← (&httpsw DailyRequest &tcpc Site)
 
-HourlyParams ← "&hourly=apparent_temperature&temperature_unit=fahrenheit"
+HourlyParams ← "&hourly=temperature_2m&temperature_unit=fahrenheit"
 HourlyRequest ← (⊐/⊂{"GET " Start Loc HourlyParams " HTTP/1.0"})
 GetHourlyWeatherData ← (&httpsw HourlyRequest &tcpc Site)
 
@@ -75,7 +75,7 @@ ParseArray ← ⊜Convert≠@,.Trim
 ParseNumber ← Convert
 ParseString ← ⊔Convert
 ParseBool ← Convert
-ParseElement ← (ParseArray?|ParseNumber|ParseString|ParseBool)
+ParseElement ← (ParseArray|ParseNumber|ParseString|ParseBool)
 
 # Usage = "subobject.field" ["array"|"number"|"string"|"bool"] JsonString
 Retrieve ← :ParseElement Type⊙(⊔⊢⇌♭ regex ComposeKVRegex).:⊙⊙.
@@ -86,8 +86,13 @@ FormatTemperature ← ⊂⍘parse:
 FormatHumidity ← ⊂:@%⍘parse
 FormatTime ← ⊔
 
+# Misc
+Lerp ← +∩×⊙(⊙(-:1):). # t e s | v
+
 CurrentWeather ← (
   GetCurrentWeatherData
+  Retrieve "current.weather_code" "number"
+  ⊙(⊂"Current Weather: " FormatWeatherCode)
   Retrieve "current.temperature_2m" "number"
   Retrieve "current_units.temperature_2m" "string"
   ⊙(⊂"Current Temperature: "FormatTemperature)
@@ -96,11 +101,8 @@ CurrentWeather ← (
   ⊙(⊂"Feels Like: "FormatTemperature)
   Retrieve "current.relative_humidity_2m" "number"
   ⊙(⊂"Humidity: " FormatHumidity)
-  Retrieve "current.weather_code" "number"
-  ⊙(⊂"Weather: " FormatWeatherCode)
   ;
   ⍜⇌(⬚∘⊂.@ ) ⍥(⬚@ ⊂:)2 ⬚@ ⊟:
-  ⬚@ ⊂"Current Weather: "
 )
 DailyWeather ← (
   GetDailyWeatherData
@@ -118,10 +120,23 @@ DailyWeather ← (
   ⬚∘⊂.@-⍥(≡⊂:≡(⊂" | "))3
   ⬚@ ⊂"7 Day Forecast: "⬚@ ⊂"Date       | Highs  | Lows   | Weather"
 )
+C ← "█▓▒░O@#X:ox*=+-· "
+HourlyWeather ← (
+  GetHourlyWeatherData
+  Retrieve "hourly.temperature_2m" "array"
+  ↙24;
+  ÷∩-,:⊃(/↥|/↧).
+  ⊏⊃(⁅×-1⧻)∘⇌C
+  ⇡⧻.⊂⊂@[:@]
+  ⊟:⊏:" ^"=parse↙2⊙;;&runc {"/usr/bin/date" "+%T"}
+  "Today's Hourly Temps: "
+  ≡⊂⇌⬚@\s⊂" "¤
+)
 Main ← (
+  HourlyWeather
   CurrentWeather
   DailyWeather
-  ⬚@ ⊂:
-  &p /⊂≡⊂@\t≡⊂:@\n
+  ⍥(⬚@ ⊂:)2
+  &p/⊂≡(⊂⊂)@\t:@\n
 )
-# Main
+Main
