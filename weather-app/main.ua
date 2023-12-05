@@ -35,24 +35,24 @@ WeatherCodes ← (⬚@ ⊜∘≠@\n.Codes)
 Site ← "api.open-meteo.com:443"
 Lat ← "34.6373032"
 Lon ← "-98.4584034"
-DaysPrior ← 1
+DaysPrior ← 0
 DaysHence ← 7
 
 # Request building
 Start ← "/v1/forecast?"
 LocString ← $"latitude=_&longitude=_"
-Loc ← LocString Lat Lon
+Loc ← ⊂LocString Lat Lon "&timezone=auto"
 DateString ← $ &past\_days=_&forecast\_days=_
 DateRange ← DateString DaysPrior DaysHence
 DailyParams ← "&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit"
 DailyRequest ← (⊐/⊂{"GET " Start Loc DailyParams DateRange " HTTP/1.0"})
 GetDailyWeatherData ← (&httpsw DailyRequest &tcpc Site)
 
-HourlyParams ← "&hourly=temperature_2m&temperature_unit=fahrenheit"
+HourlyParams ← "&hourly=temperature_2m&temperature_unit=fahrenheit&forecast_days=1"
 HourlyRequest ← (⊐/⊂{"GET " Start Loc HourlyParams " HTTP/1.0"})
 GetHourlyWeatherData ← (&httpsw HourlyRequest &tcpc Site)
 
-CurrentParams ← "&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,&temperature_unit=fahrenheit&precipitation_unit=inch"
+CurrentParams ← "&current=temperature_2m,precipitation_probability,relative_humidity_2m,apparent_temperature,precipitation,weather_code,&temperature_unit=fahrenheit&precipitation_unit=inch"
 CurrentRequest ← (⊐/⊂{"GET " Start Loc CurrentParams " HTTP/1.0"})
 GetCurrentWeatherData ← (&httpsw CurrentRequest &tcpc Site)
 
@@ -99,10 +99,12 @@ CurrentWeather ← (
   Retrieve "current.apparent_temperature" "number"
   Retrieve "current_units.apparent_temperature" "string"
   ⊙(⊂"Feels Like: "FormatTemperature)
+  Retrieve "current.precipitation_probability" "number"
+  ⊙(⊂"Precip. Chance: "FormatHumidity)
   Retrieve "current.relative_humidity_2m" "number"
   ⊙(⊂"Humidity: " FormatHumidity)
   ;
-  ⍜⇌(⬚∘⊂.@ ) ⍥(⬚@ ⊂:)2 ⬚@ ⊟:
+  ⍜⇌(⬚∘⊂.@ ) ⍥(⬚@ ⊂:)3 ⬚@ ⊟:
 )
 DailyWeather ← (
   GetDailyWeatherData
@@ -120,7 +122,7 @@ DailyWeather ← (
   ⬚∘⊂.@-⍥(≡⊂:≡(⊂" | "))3
   ⬚@ ⊂"7 Day Forecast: "⬚@ ⊂"Date       | Highs  | Lows   | Weather"
 )
-C ← "█▓▒░O@#X:ox*=+-· "
+C ← ⇌"█▓▒░O@#X:ox*=+-· "
 HourlyWeather ← (
   GetHourlyWeatherData
   Retrieve "hourly.temperature_2m" "array"
@@ -137,6 +139,6 @@ Main ← (
   CurrentWeather
   DailyWeather
   ⍥(⬚@ ⊂:)2
-  &p/⊂≡(⊂⊂)@\t:@\n
+  &p&p""/⊂≡(⊂⊂)@\t:@\n
 )
 Main
