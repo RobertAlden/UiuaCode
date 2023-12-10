@@ -65,26 +65,26 @@ String ← "(\".*?\"),?"
 Bool ← "\"(true|false)\",?"
 Type ← ⊗□:{"array" "number" "string" "bool"}
 Which ← (Array|Number|String|Bool|"")
-MakeKeyRegex ← ⊐/⊂⇌⊐[Key ⊔⊢⍥(:ObjPrefix ⊃(⊔⊢|↘1))]-1⧻.⊜□≠@..
+MakeKeyRegex ← ⊐/⊂⇌⊐[□ Key °□⊢⍥(:ObjPrefix ⊃(°□⊢|↘1))]-1⧻.⊜□≠@..
 ComposeKVRegex ← ⊂MakeKeyRegex:Which Type
 
 # Parsing data
 Trim ← ↘1↘¯1
-Convert ← (⍣(parse)((0|1|□Trim) ⊗□:{"false" "true"}. ;:))
+Convert ← (⍣(⋕)((0|1|□Trim) ⊗□:{"false" "true"}. ;:))
 ParseArray ← ⊜Convert≠@,.Trim
 ParseNumber ← Convert
-ParseString ← ⊔Convert
+ParseString ← °□Convert
 ParseBool ← Convert
 ParseElement ← (ParseArray|ParseNumber|ParseString|ParseBool)
 
 # Usage = "subobject.field" ["array"|"number"|"string"|"bool"] JsonString
-Retrieve ← :ParseElement Type⊙(⊔⊢⇌♭ regex ComposeKVRegex).:⊙⊙.
+Retrieve ← :ParseElement Type⊙(°□⊢⇌♭ regex ComposeKVRegex).:⊙⊙.
 
 # Formatting
 FormatWeatherCode ← ⊏:WeatherCodes ⊗:WCodes
-FormatTemperature ← ⊂⍘parse:
-FormatHumidity ← ⊂:@%⍘parse
-FormatTime ← ⊔
+FormatTemperature ← ⊂°⋕:
+FormatHumidity ← ⊂:@%°⋕
+FormatTime ← °□
 
 # Misc
 Lerp ← +∩×⊙(⊙(-:1):). # t e s | v
@@ -130,7 +130,7 @@ HourlyWeather ← (
   ÷∩-,:⊃(/↥|/↧).
   ⊏⊃(⁅×-1⧻)∘⇌C
   ⇡⧻.⊂⊂@[:@]
-  ⊟:⊏:" ^"=parse↙2⊙;;&runc {"/usr/bin/date" "+%T"}
+  ⊟:⊏:" ^"=⋕↙2⊙;;&runc {"/usr/bin/date" "+%T"}
   "Today's Hourly Temps: "
   ≡⊂⇌⬚@\s⊂" "¤
 )
