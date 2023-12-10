@@ -65,8 +65,7 @@ String ← "(\".*?\"),?"
 Bool ← "\"(true|false)\",?"
 Type ← ⊗□:{"array" "number" "string" "bool"}
 Which ← (Array|Number|String|Bool|"")
-MakeKeyRegex ← ⊐/⊂⇌⊐[□ Key °□⊢⍥(:ObjPrefix ⊃(°□⊢|↘1))]-1⧻.⊜□≠@..
-ComposeKVRegex ← ⊂MakeKeyRegex:Which Type
+ComposeKVRegex ← ⊂⊂⊓(°□⊐/⊂∵(⍜°□ObjPrefix)|Key °□⊢|Which Type) ⊃↘↙¯1⊜□≠@..
 
 # Parsing data
 Trim ← ↘1↘¯1
@@ -78,7 +77,7 @@ ParseBool ← Convert
 ParseElement ← (ParseArray|ParseNumber|ParseString|ParseBool)
 
 # Usage = "subobject.field" ["array"|"number"|"string"|"bool"] JsonString
-Retrieve ← :ParseElement Type⊙(°□⊢⇌♭ regex ComposeKVRegex).:⊙⊙.
+Retrieve ← ⊃⋅⋅∘(ParseElement ⊃(Type⋅∘|°□⊏¯1⊢ regex ComposeKVRegex ⊙⊙∘))
 
 # Formatting
 FormatWeatherCode ← ⊏:WeatherCodes ⊗:WCodes
