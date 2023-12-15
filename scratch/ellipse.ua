@@ -9,3 +9,5 @@ Extents ← (⍜⍉(⊟⊃/↧/↥))
 Normalize ← ⊃(⍉⋅∘)(≡⍜⇌⊂⍉⊙Extents)
 
 Normalize [0_0 64_64]
+
+N
