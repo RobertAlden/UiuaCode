@@ -3,11 +3,17 @@ C ← ≡⍥(×i):1⊗:"RDLU"°□
 Input ← :♭⊜(⊓(C|⋕|°□)°[⊙⊙∘]↘1⊢regex r)≠@\n.&fras
 
 Area ← /+×⊓+-∩(↻1.)
-Silver ← +1÷2+⊃(Area °ℂ\+×|/+)
 
 HexMap ← ⊂+@0⇡10 +@a⇡6
-HexToInst ← ⊓(/+×ⁿ:16⇌⇡⧻.|≡⍥(×i):1) ⊃↘↙¯1∵(⊗:HexMap) ↘1
+HexToRgb ← ⍜(×1e2)⌊÷255≡(≡/+×≡(ⁿ:16⇌⇡⧻.)↯3_2)∵(⊗:HexMap) ≡↘1
+Flood ← ≡≡((⊡1_1|/↥/↥)=0⊡1_1.) ◫3_3 ⍥(⇌⍉≡⊂0)4
 
-Gold ← Silver ⊙(⊢⍉)≡HexToInst⋅⋅∘
-
-Silver Input "input.txt"
+Visualize ← (
+  ⊙⊙HexToRgb
+  ,⇡⧻.
+  :∩(⊐/⊂≡(□↯))
+  °⊚⌵▽:⍉[°ℂ]\+
+  ⍢(Flood|/↥/↥=0)
+  # &fwa "out.png" &ime "png" ±⊙;
+)
+Visualize Input "input.txt"
