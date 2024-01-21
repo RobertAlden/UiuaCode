@@ -1,0 +1,14 @@
+
+# This is an example program in Roblang
+# it takes two numbers and adds them
+# and then it doubles the sum.
+
+doubleSum a b:
+  v: + a b # assignment!
+  * 2 v
+
+main:
+  res: doubleSum 123 254
+  res
+
+main

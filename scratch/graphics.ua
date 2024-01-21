@@ -24,14 +24,14 @@ Strides ← (◫2⊂⊃∘⊢)
 Polygon ← (Lines Strides)
 
 Main ← (
-  # 1 InitScreen 20_1
+  1 InitScreen 20_1
 
   # Line [5_1 5_16]
   # Line [16_5 3_5]
   # Line [5_5 9_9]
-  Slope [5_16 16_5]
-  # Line [2_3 5_10]
+  # Slope [5_16 16_5]
+  Line [2_3 5_10]
   # Lines Strides [2_3 5_10 4_8]
-  # &ims Draw
+  &ims Draw
 )
 Main
