@@ -3,12 +3,23 @@
 # it takes two numbers and adds them
 # and then it doubles the sum.
 
-doubleSum a b:
-  v: + a b # assignment!
-  * 2 v
+Cube a:                # FnDef
+  * a * a a            # Return 
+
+Add2Plus1 a b:         # FnDef
+  + 1 + a b            # Return
+
+QuadPowSum a b:        # FnDef
+  v: * Add2Plus1 a b 2 # Assign
+  * v Cube v           # Return
+
+Simple wave normal:    # FnDef
+  x: * wave normal     # Assign
+  delta: / 1 ^ x x     # Assign
+  + delta x            # Return
 
 main:
-  res: doubleSum 123 254
-  res
+  res: QuadPowSum 123 -54 16
+  + res Simple 23 45
 
 main
