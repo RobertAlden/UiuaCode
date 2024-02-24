@@ -69,7 +69,7 @@ ComposeKVRegex ← ⊂⊂⊓(°□⊐/⊂∵(⍜°□ObjPrefix)|Key °□⊢|Whi
 
 # Parsing data
 Trim ← ↘1↘¯1
-Convert ← (⍣(⋕)((0|1|□Trim) ⊗□:{"false" "true"}. ;:))
+Convert ← (⍣(⋕)((0|1|□Trim) ⊗□:{"false" "true"}. ◌:))
 ParseArray ← ⊜Convert≠@,.Trim
 ParseNumber ← Convert
 ParseString ← °□Convert
@@ -102,7 +102,7 @@ CurrentWeather ← (
   ⊙(⊂"Precip. Chance: "FormatHumidity)
   Retrieve "current.relative_humidity_2m" "number"
   ⊙(⊂"Humidity: " FormatHumidity)
-  ;
+  ◌
   ⍜⇌(⬚∘⊂.@ ) ⍥(⬚@ ⊂:)3 ⬚@ ⊟:
 )
 DailyWeather ← (
@@ -117,7 +117,7 @@ DailyWeather ← (
   ⊙(⬚@ ≡FormatTemperature ¤)
   Retrieve "daily.weather_code" "array"
   ⊙(≡▽¤¬/×=@ . ≡FormatWeatherCode)
-  ;
+  ◌
   ⬚∘⊂.@-⍥(≡⊂:≡(⊂" | "))3
   ⬚@ ⊂"7 Day Forecast: "⬚@ ⊂"Date       | Highs  | Lows   | Weather"
 )
@@ -125,11 +125,11 @@ C ← ⇌"█▓▒░O@#X:ox*=+-· "
 HourlyWeather ← (
   GetHourlyWeatherData
   Retrieve "hourly.temperature_2m" "array"
-  ↙24;
+  ↙24◌
   ÷∩-,:⊃(/↥|/↧).
   ⊏⊃(⁅×-1⧻)∘⇌C
   ⇡⧻.⊂⊂@[:@]
-  ⊟:⊏:" ^"=⋕↙2⊙;;&runc {"/usr/bin/date" "+%T"}
+  ⊟:⊏:" ^"=⋕↙2⊙◌◌&runc {"/usr/bin/date" "+%T"}
   "Today's Hourly Temps: "
   ≡⊂⇌⬚@\s⊂" "¤
 )

@@ -28,3 +28,4 @@ RemoveAllComments ← ⊙;⍢(Remove ⊙⊃(°□⊢⊢|↘1)|>0⧻⋅∘):regex
 &p.RemoveAllComments &p "Input File:" &fras "sample.rob"
 
 ParseTag Function
+Function
