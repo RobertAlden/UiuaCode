@@ -23,9 +23,10 @@ ParseTag ← ⬚(□"")regex
 
 Remove ← ⊂:↘⊃(⧻|⊃↘↙⊢⊚⌕⊙.):
 Comment ← " *#.*"
-RemoveAllComments ← ⊙;⍢(Remove ⊙⊃(°□⊢⊢|↘1)|>0⧻⋅∘):regex Comment.
+RemoveAllComments ← ⊙◌⍢(Remove ⊙⊃(°□⊢⊢|↘1)|>0⧻⋅∘):regex Comment.
 
 &p.RemoveAllComments &p "Input File:" &fras "sample.rob"
 
 ParseTag Function
 Function
+ParseTag Body
