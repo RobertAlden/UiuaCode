@@ -1,13 +1,17 @@
-#
-#
-Symbols ← " @"
-World ← (↯:⍥[⚂]×⍘⊟.)
-CreatePlayer ← ⍜⊡;⊙⊙1
+# Experimental!
+
+Vars ← map {"playerPos"} {3_3}
+
+Symbols ← " @oO.△"
+WorldSize ← 5_5
+World ← ↯:⌊×⧻Symbols[⍥⚂]×°⊟. WorldSize
+
+CreatePlayer ← ⍜⊡◌⊙⊙1
 
 DisplayWorld ← ≡&p⊏:Symbols ⊙@\n
 
 GameLoop ← (
-  ; # consume user input
+  ◌ # consume user input
   &p @\n
   &p DisplayWorld.
   &p @\n
@@ -15,8 +19,7 @@ GameLoop ← (
 
 Continue ← ¬≍"q"
 Main ← (
-  World 10_10
-  CreatePlayer 5_5
+  World
   &raw 1
   ⍢(GameLoop)(Continue. &rs 1 0)
   &raw 0
