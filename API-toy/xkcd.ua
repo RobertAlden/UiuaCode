@@ -1,8 +1,9 @@
+# Experimental!
+~ "git: github.com/ekgame/uiua-json" ~ ParseJsonString
+
 Site ← "xkcd.com:443"
 Request ← "/info.0.json"
-Response ← &httpsw /◇⊂{"GET " Request " HTTP/1.0"} &tcpc Site
-KeyRegex ← $"\"_\":(.*?)[,}]"
-Read ← : °□⊏1⊢regex ⊙. KeyRegex
+Response ← °□⊢⊢regex"\\{.*\\}" (&httpsw /◇⊂{"GET " Request " HTTP/1.0"} &tcpc Site)
+Read ← °□⊏1get ⊙(°□⊏1ParseJsonString)
 
-Main ← ↘2↘¯1◌ Read "img" Response
-Main
+Read "alt" Response

@@ -1,17 +1,26 @@
-# Rob's Uiua graphics library
+# Rob's Uiua Complex Number Graphics library
 
-# x0_y0 x1_y1
-Line ← ◴⁅+⊃¤(⊞×÷⟜⇡×2/↥⌵.-) # Makes line by linear interpolation
+# (L)erps between values in a shape [n] array by some factor.
+# Example: [7.5 15] <- Lerp [5 10 20] 0.5
+Lerp ← +≡⊃(⊢|×/-)◫2
 
-# points
-Polyline ← /◇⊂≡(□/Line)◫2 # Makes Polyline
+# de Casteljau's algorithm
+# https://pomax.github.io/bezierinfo/#decasteljau
+Bezier ← ♭⊙◌≡⍢(Lerp ⊙.)(>1⧻)¤ ⊙(⊂0÷⟜⍜¯⇡)
 
-# points
-Polygon ← ◴Polyline⍜⊙⇌⊂⊢. # Makes Polygon 
+# Renders a shape [n] array of complex numbers as an image.
+Render ← &ims≠0°⊚◴⁅-¤/↧.⍉[°ℂ]
 
-# x_y r
-Circle ← °⊚Polygon +¤:⁅×:÷2+1⍉⊟°∠×τ÷⟜⇡32: # Makes 32-gon (Circle) 
+# Uses Lerp to create a line between two complex numbers.
+# [c1 c2] -> [points of line between c1 and c2]
+Line ← ⁅≡Lerp¤⟜(⊂0÷⟜⍜¯⇡⁅⌵/-)
 
-# Normalizes a list of points that may have components <0
-# to have all components be >=0 for use with unwhere
-Normalize ← -¤≡/↧⍉.
+# Interprets a shape [n] array of complex numbers as an
+# polyline, with the points as the vertices
+# [c1 c2 c3...] -> [series of points of polyline]
+Polyline ← ♭/◇⊂≡(□Line)◫2
+
+# Interprets a shape [n] array of complex numbers as an
+# polygon, with the points as the vertices
+# [c1 c2 c3...] -> [series of points of polygon]
+Polygon ← ◴Polyline⍜⊙⇌⊂⊢.
