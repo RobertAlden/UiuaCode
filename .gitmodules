@@ -1,0 +1,3 @@
+[submodule "uiua-modules/ekgame/uiua-json"]
+	path = uiua-modules/ekgame/uiua-json
+	url = https://github.com/ekgame/uiua-json
