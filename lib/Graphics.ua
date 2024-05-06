@@ -15,8 +15,7 @@ Lerp ← +≡⊃(⊢|×/-)◫2
 # and a scalar positive step count
 # de Casteljau's algorithm
 # https://pomax.github.io/bezierinfo/#decasteljau
-# Example: [complex points on bezier curve] <- Bezier [2-i 4+2i 1-2i 4+4i] 30
-Bezier ← ♭⊙◌≡⍢(Lerp ⊙.)(>1⧻)¤ ⊙(NormalRange)
+Bezier ← ♭⊙◌≡⍢(Lerp ⊙.)(>1⧻)¤ ⊙NormalRange
 
 # Renders an array/arrays of complex numbers as an image/gif, respectively.
 v ← °⊚⍉[°ℂ]
