@@ -1,21 +1,29 @@
-# Experimental!
-# Mandlebrot
+# Julia/Mandlebrot set viewer
 
-~ "../lib/Graphics.ua" ~ NormalComplexField NormalRange
-Ncf ← NormalComplexField
-Nr ← NormalRange
+Nr ← (⊂0÷⟜⍜¯⇡⌊-1)    # (N)ormal (r)ange
+Ncf ← ⊞ℂ⇌.⊂¯⇌⟜(↘1)Nr # (N)ormal (c)omplex (f)ield
 
-# Unpacks state values from map and creates the julia set iteration values.
-ImageArgs ← °{⊙⊙⊙⊙∘}≡get{"Resolution" "Zoom" "Position" "Complex" "Iterations"}¤
-Image ← /+>2⌵⊙◌⍥(⊂+×.⊢,,)⊃⋅⋅∘⊙∘[∘]+×Ncf ImageArgs
+# Unpacks state values from map and creates the julia/mandlebrot set iteration values.
 
 # Interpolates between two colors
-ColorLerp ← ≡⍜-×¤⊙¤ ⊙⊙(Nr/↥♭.)
+ColorArgs ← °{⊙∘}≡get{"Color1" "Color2"}¤
+ColorLerp ← (≡⍜-×¤⊙¤ ⊙⊙(Nr))
 
-# Produces gradient between two lighter and darker random colors
-RandomColors ← ⊏:⊂↯:0⊢⇌△. ColorLerp ×0.5 ⚂_⚂_⚂ ⍜-× 1 ⚂_⚂_⚂ 0.5
+StateKeys ← {"Resolution" "Zoom" "Position" "Complex" "Iterations" "ZoomFactor" "ComplexFactor" "Color1" "Color2" "Mode"}
+StateValues ← {16 1 (ℂ0 0) (/ℂ-0.5⚂_⚂) 15 0.2 0.032 ⚂_⚂_⚂ ⚂_⚂_⚂ 0}
+InitStateMap ← (map StateKeys StateValues)
 
-InitStateMap ← (map {"Resolution" "Zoom" "Position" "Complex" "Iterations" "ZoomFactor" "ComplexFactor"} {16 1 (ℂ0 0) (/ℂ-0.5⚂_⚂) 15 0.2 0.032})
+Z ← memo(⊂+×.⊢⊙,.)
+# Interprets the StateMap to produce either a julia set or a mandlebrot set
+JuliaArgs ← °{⊙⊙⊙⊙∘}≡get{"Resolution" "Zoom" "Position" "Complex" "Iterations"}¤
+Julia ← (/+>2⌵⊙◌⍥(Z)⊃⋅⋅∘⊙∘[∘]+×Ncf)
+MandleArgs ← °{⊙⊙⊙∘}≡get{"Resolution" "Zoom" "Position" "Iterations"}¤
+Mandlebrot ← (/+>2⌵⊙◌⍥(Z)⊃⋅⋅∘⊙∘[∘].+×Ncf)
+RenderState ← memo(
+  ⊃(ColorArgs|↧100/↥♭. ⟨Julia JuliaArgs|Mandlebrot MandleArgs⟩ °□get"Mode".)
+  ⊏◿⧻⟜:⊂↯:0⊢⇌△. ⊂ ⇌. ColorLerp
+)
+
 ReadInput ← (
   ⍣(
     ⍜(get"Position")+:×ℂ¯1 0 ×∩(°□get)"ZoomFactor", "Zoom".°"w" # Move up
@@ -26,8 +34,8 @@ ReadInput ← (
   | ⍜(get"Complex")+:×ℂ¯1 0×∩(°□get)"ComplexFactor","Zoom".°"S" # Move down in complex plane
   | ⍜(get"Complex")+:×ℂ0 1×∩(°□get)"ComplexFactor","Zoom".°"A"  # Move left in complex plane
   | ⍜(get"Complex")+:×ℂ0 ¯1×∩(°□get)"ComplexFactor","Zoom".°"D" # Move right in complex plane
-  | ⍜(get"Iterations"|↧125+1) °"F"                              # Increase iteration depth
-  | ⍜(get"Iterations"|↥5-1) °"R"                                # Decrese iteration depth
+  | ⍜(get"Iterations"|↧1000+5) °"F"                             # Increase iteration depth
+  | ⍜(get"Iterations"|↥5-5) °"R"                                # Decrese iteration depth
   | ⍜(get"ComplexFactor"|↧0.5×2) °"Q"                           # Double complex plane movement speed
   | ⍜(get"ComplexFactor"|↥1e¯5×0.5) °"E"                        # Halve complex plane movement speed
   | ⍜(get"Zoom"|↧2 ×1.11111111) °"r"                            # Zoom out
@@ -36,24 +44,32 @@ ReadInput ← (
   | ⍜(get"ZoomFactor"|↥1e¯5×0.9) °"N"                           # double Zoom Movement speed adjustment factor
   | ⍜(get"Resolution"|↧2048×2) °"q"                             # double output resolution
   | ⍜(get"Resolution"|↥8×0.5) °"e"                              # halve output resolution
-  | InitStateMap ◌ °"Z"                                         # Reset state with new random complex value
+  | ⍜(get"Color1"|⋅⚂_⚂_⚂) °"c"                                  # double output resolution
+  | ⍜(get"Color2"|⋅⚂_⚂_⚂) °"C"                                  # halve output resolution
+  |                                                             # switch between Julia/Mandlebrot set, while setting complex number to camera position or vice versa.
+    (
+      °□get"Mode".°"v"
+      ⟨insert"Position" get"Complex".|insert"Complex" get"Position".⟩
+      ⍜(get"Mode"|¬)
+    )
+  | InitStateMap ◌ °"Z" # Reset state with new random complex value
   | (
       ∘°"h"
       &p "Rob's Julia set viewer"
       &p "keybinds:"
-      &p "wasd: pan camera  WASD: move around complex plane"
-      &p "qe: Resolution Up/Down QE: Complex plane speed Up/Down"
-      &p "rf: Zoom In/Out RF: Less/More Iterations"
-      &p "MN: Movement speed Up/Down"
+      &p "wasd: pan camera    WASD: move around complex plane"
+      &p "qe: Resolution Up/Down    QE: Complex plane speed Up/Down"
+      &p "rf: Zoom In/Out    RF: Less/More Iterations"
+      &p "MN: Movement speed Up/Down    Z: Reset  X: Exit"
+      &p "c: Change inner color    C: Change outer color"
+      &p "v: Switch between Julia set and Mandlebrot set"
     )
   | ∘◌ # Ignore other keys
   )
-  RandomColors Image. &s.
-  # &ims
-  &fwa "out.jpg" &ime "jpg"
+  :$"Took _ seconds to render."⍜nowRenderState. &s.
+  ⊃(&ims|&fwa "out.jpg" &ime "jpg")
+  &p
 )
-
-# Shift X
 Continue ← ¬≍"X"
 Main ← (
   &p "press h for help!"
@@ -63,5 +79,5 @@ Main ← (
   ◌◌
   &p"Goodbye!"
 )
-
-⍣(Main|&raw0)
+# ¯0.7732207332854895+0.28475890727827047i
+Main
