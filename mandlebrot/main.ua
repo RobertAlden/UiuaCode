@@ -34,9 +34,8 @@ ReadInput ← (
   | InitStateMap ◌ °"Z"
   | ∘◌
   )
-
-  &ims RandomColors Image.
   &p.
+  &ims RandomColors Image.
 )
 
 Continue ← ¬≍"X"
