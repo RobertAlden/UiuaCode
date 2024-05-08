@@ -2,7 +2,7 @@
 
 # Produces N values evenly between [0, 1]
 # Exmaple:[0 0.25 0.5 0.75 1] <- NormalRange 5
-NormalRange ← (⊂0÷⟜⍜¯⇡-1)
+NormalRange ← (⊂0÷⟜⍜¯⇡⌊-1)
 
 # Produces a complex number matrix over the range [-1 1],[-i i]
 NormalComplexField ← ⊞ℂ⇌.⊂¯⇌⟜(↘1)NormalRange
@@ -34,5 +34,3 @@ Polyline ← ♭/◇⊂≡(□Line)◫2
 # polygon, with the points as the vertices
 # [c1 c2 c3...] -> [series of points of polygon]
 Polygon ← ◴Polyline⍜⊙⇌⊂⊢.
-
-
