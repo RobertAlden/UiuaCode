@@ -56,6 +56,7 @@ ReadInput ← (
 # Shift X
 Continue ← ¬≍"X"
 Main ← (
+  &p "press h for help!"
   &raw 1
   ⍢(&rs 1 0 ReadInput)(Continue) " " InitStateMap
   &raw 0
